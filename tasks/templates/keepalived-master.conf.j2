@@ -12,10 +12,10 @@ vrrp_script check-haproxy {
 vrrp_instance VI-kube-master {
     state MASTER
     priority 120
-    unicast_src_ip {{ inventory_hostname }}
+    unicast_src_ip {{ inventory_hostname }}/{{ EX_APISERVER_VIP_MASK }}
     unicast_peer {
 {% for h in groups['kube-master'] %}{% if h != inventory_hostname %}
-        {{ h }}
+        {{ h }}/{{ EX_APISERVER_VIP_MASK }}
 {% endif %}{% endfor %}
     }
     dont_track_primary
