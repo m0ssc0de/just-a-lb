@@ -14,7 +14,7 @@ vrrp_instance VI-kube-master {
     priority {{ 119 | random(61, 1) }}
     unicast_src_ip {{ inventory_hostname }}
     unicast_peer {
-{% for h in groups['ex-lb'] %}{% if h != inventory_hostname %}
+{% for h in groups['kube-master'] %}{% if h != inventory_hostname %}
         {{ h }}
 {% endif %}{% endfor %}
     }
